@@ -369,56 +369,28 @@ class _DropDownMenu1State extends State<DropDownMenu> {
   Widget build(BuildContext context) {
     return
 
-      Column(
+     Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 150,
-            height: 30,
-
-            decoration: BoxDecoration(
-              border:
-              Border.all(color: Colors.grey,width: 1),
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(
-                  5.0) //         <--- border radius here
-              ),
-            ),
-            child:
-            DropdownButton<String>(
-              focusColor:Colors.white,
-              isExpanded: true,
-              value: SelectedGroupName,
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 24,
-              //  elevation: 40,
-              style: const TextStyle(color: Colors.black),
-              underline: Container(),
-              onChanged: (String? newValue) {
-                SelectedGroupName = newValue!;
-                setState(() {
-                    Globals.SelectedGroupName = SelectedGroupName;
-                    SettingsEvent newEvent = new SettingsEvent();
-                    newEvent.Enabled = false;
-                    TestBlocc.add(newEvent);
-                });
-              },
-              items: GroupNames
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  alignment: AlignmentDirectional.center,
-                  value: value,
-                  // enabled: false,
-
-                  //
-                  child:  Text(value,textAlign: TextAlign.center
-                    ,style: TextStyle(color: Colors.black,fontSize: 15,),),
+      FloatingActionButton.extended(
+      label: const Text('SALES'),
+      onPressed: (){
+      Globals.SelectedGroupName = 'SALES';
+          SettingsEvent newEvent = new SettingsEvent();
+    newEvent.Enabled = false;
+    newEvent.GroupName = 'SALES';
+    TestBlocc.add(newEvent);}),
 
 
+          FloatingActionButton.extended(
 
-                );
-              }).toList(),
-            ),),
+       label: const Text('SUPPORT'),
+              onPressed: (){
+                Globals.SelectedGroupName = 'SUPPORT';
+                SettingsEvent newEvent = new SettingsEvent();
+                newEvent.Enabled = false;
+                newEvent.GroupName = 'SUPPORT';
+                TestBlocc.add(newEvent);})
         ],
       );
 
