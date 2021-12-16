@@ -1,25 +1,47 @@
-class Setting {
-  late String GroupName = "";
-  late String SettingName = "";
-  late bool Enabled = false;
-  late bool Visible = false;
-  late bool AppSharing = false;
-  late bool Video = false;
-  late bool VideoEnabled = false;
-  late bool AllowStopCancel = false;
-  late bool AllowPauseResume = false;
-  late bool RecordingActionsEnabled = false;
+import 'package:equatable/equatable.dart';
 
-  Setting(String groupName, String settingName, bool enabled, bool visible, bool appSharing,bool video, bool videoEnabled, bool allowStopCancel,bool allowpauseresume, bool recordingactionenabled){
-    GroupName = groupName;
-    SettingName = settingName;
-    Enabled = enabled;
-    Visible = visible;
-    AppSharing = appSharing;
-    Video = video;
-    VideoEnabled = videoEnabled;
-    AllowStopCancel = allowStopCancel;
-    AllowPauseResume = allowpauseresume;
-    RecordingActionsEnabled = recordingactionenabled;
+class Setting extends Equatable {
+  const Setting({
+    this.groupName = '',
+    this.settingName = '',
+    this.enabled = false,
+    this.visible = false,
+    this.videoEnabled = false,
+    this.appSharing = false,
+  });
+
+  final String groupName;
+  final String settingName;
+  final bool enabled;
+  final bool visible;
+  final bool videoEnabled;
+  final bool appSharing;
+
+  @override
+  List<Object?> get props => [
+        groupName,
+        settingName,
+        enabled,
+        visible,
+        videoEnabled,
+        appSharing,
+      ];
+
+  Setting copyWith({
+    String? groupName,
+    String? settingName,
+    bool? enabled,
+    bool? visible,
+    bool? videoEnabled,
+    bool? appSharing,
+  }) {
+    return Setting(
+      groupName: groupName ?? this.groupName,
+      settingName: settingName ?? this.settingName,
+      enabled: enabled ?? this.enabled,
+      visible: visible ?? this.visible,
+      videoEnabled: videoEnabled ?? this.videoEnabled,
+      appSharing: appSharing ?? this.appSharing,
+    );
   }
 }

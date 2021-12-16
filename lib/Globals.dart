@@ -1,3 +1,3 @@
-class Globals{
-  static late String SelectedGroupName;
+class Globals {
+  static late String selectedGroupName;
 }
