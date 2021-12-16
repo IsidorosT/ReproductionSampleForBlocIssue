@@ -42,11 +42,15 @@ class TestWidget extends StatelessWidget {
   late TestBloc Test;
 
   TestWidget(TestBloc test){
+
     Test = test;
+
     SettingsEvent newEvent = new SettingsEvent();
     newEvent.Enabled = true;
     newEvent.GroupName = "Sales";
     Test.add(newEvent);
+
+
   }
 
   @override
@@ -58,7 +62,31 @@ class TestWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                DropDownMenu(["Sales","Support"], Globals.SelectedGroupName,"Settings","",Test),
+          Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FloatingActionButton.extended(
+                  label: const Text('Sales'),
+                  onPressed: (){
+                    Globals.SelectedGroupName = "Sales";
+                    SettingsEvent newEvent = new SettingsEvent();
+                    newEvent.Enabled = false;
+                    newEvent.GroupName = "Sales";
+                    Test.add(newEvent);}),
+
+
+              FloatingActionButton.extended(
+
+                  label: const Text('Support'),
+                  onPressed: (){
+                    Globals.SelectedGroupName = "Support";
+                    SettingsEvent newEvent = new SettingsEvent();
+                    newEvent.Enabled = false;
+                    newEvent.GroupName = "Support";
+                    Test.add(newEvent);
+                  })
+            ],
+          ),
           Expanded(
             child:GridView.builder(
               shrinkWrap: true,
@@ -329,70 +357,3 @@ class _MyCheckBoxState extends State<MyCheckBox> {
   }
 }
 
-class DropDownMenu extends StatefulWidget {
-
-  late List<String> GroupNames;
-  late String SelectedGroupName;
-  late String Usage;
-  late TestBloc TestBlocc;
-  late String UserId;
-
-  DropDownMenu(List<String> groupNames, String selectedGroupName, String usage, String userId,TestBloc testbloc){
-    GroupNames = groupNames;
-
-    SelectedGroupName = selectedGroupName;
-    Usage = usage;
-    TestBlocc = testbloc;
-    UserId = userId;
-  }
-
-  @override
-  State<DropDownMenu> createState() => _DropDownMenu1State(GroupNames,SelectedGroupName,Usage,UserId,TestBlocc);
-}
-
-/// This is the private State class that goes with MyStatefulWidget.
-class _DropDownMenu1State extends State<DropDownMenu> {
-  late String SelectedGroupName;
-  late List<String> GroupNames;
-  late TestBloc TestBlocc;
-
-  late String Usage;
-  late String UserId;
-  _DropDownMenu1State(List<String> groupNames, String selectedGroupName, String usage, String userId,TestBloc testbloc){
-    GroupNames = groupNames;
-    SelectedGroupName = selectedGroupName;
-    Usage = usage;
-    TestBlocc = testbloc;
-    UserId = userId;
-  }
-  @override
-  Widget build(BuildContext context) {
-    return
-
-     Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-      FloatingActionButton.extended(
-      label: const Text('SALES'),
-      onPressed: (){
-      Globals.SelectedGroupName = 'SALES';
-          SettingsEvent newEvent = new SettingsEvent();
-    newEvent.Enabled = false;
-    newEvent.GroupName = 'SALES';
-    TestBlocc.add(newEvent);}),
-
-
-          FloatingActionButton.extended(
-
-       label: const Text('SUPPORT'),
-              onPressed: (){
-                Globals.SelectedGroupName = 'SUPPORT';
-                SettingsEvent newEvent = new SettingsEvent();
-                newEvent.Enabled = false;
-                newEvent.GroupName = 'SUPPORT';
-                TestBlocc.add(newEvent);})
-        ],
-      );
-
-  }
-}

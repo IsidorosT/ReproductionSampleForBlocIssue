@@ -10,22 +10,22 @@ class TestBloc extends Bloc<SettingsEvent, SettingsState> {
   Stream<SettingsState> mapEventToState(SettingsEvent event) async*
   {
     if(event.Enabled){
-        for(int i = 0;i<25;i++){
-          if(i<13)
+        for(int i = 0;i<8;i++){
+          if(i<4)
             Settings.add(new Setting("Sales",i.toString(),true,true,true,true,true,true,true,true));
           else
             Settings.add(new Setting("Support",i.toString(),false,true,false,false,true,false,false,true));
         }
 
     }
-    List<Setting> ActiveSettings = new List.empty(growable: true);
+    SettingsState newState = new SettingsState();
+    newState.Settings = new List.empty(growable: true);
     for(int i = 0;i<Settings.length;i++){
       if(Settings[i].GroupName == event.GroupName){
-        ActiveSettings.add(Settings[i]);
+        newState.Settings.add(Settings[i]);
       }
     }
-    SettingsState newState = new SettingsState();
-    newState.Settings = ActiveSettings;
+    print("Selected Group:" + event.GroupName);
     yield newState;
   }
 }
